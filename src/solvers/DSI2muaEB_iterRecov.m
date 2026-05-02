@@ -1,28 +1,19 @@
-function [mua, iter]=DSI2muaEB_iterRecov(rhos, II, musp, opts)
-% [mua, iter]=DSI2muaEB_iterRecov(rhos, II, musp, opts)
-% Giles Blaney Fall 2020
-% Assumes extrapolated-boundary condition
-% Expects DS set made of 4 SD measurements
-%   Inputs:
-%       dis      - 1 x 4 array of source-detector distances in the
-%                  following format: [S1, L1, S2, L2] (mm)            
-%       II       - DC data in a 1 x 4 array containing data in the
-%                  following format: [S1, L1, S2, L2]
-%       musp     - Assumed musp (1/mm)
-%       opts     - (Optional) Structure containing options as feilds:
-%                  - mua0: mua to use at for first iteration (1/mm)
-%                  - mueff_tol: Change in mueff stoping criteria (1/mm)
-%                    abs(mueff(n)-mueff(n-1))<mueff_tol => Stop
-%                  - n_max: Maximum iteration number stoping criteria
-%                    n>=n_max => Stop
-%                  - nin: Index of refraction inside medium
-%                  - nout: Index of refraction outside medium
-%   Output:
-%       mua      - mua found (1/mm)
-%       iter     - Structure containing information about iterations as
-%                  feilds:
-%                  - n: Number of iterations
-%                  - mueff_all: History of mueff during iterations
+function [mua, iter] = DSI2muaEB_iterRecov(rhos, II, musp, opts)
+% DSI2muaEB_iterRecov Recover absorption coefficient using dual-slope intensity iterative recovery (EB boundary).
+%
+% [mua, iter] = DSI2muaEB_iterRecov(rhos, II, musp, opts)
+%
+% Written by Giles Blaney, Ph.D. Fall 2020
+%
+% Inputs:
+%   rhos - Source-detector distances in format [S1, L1, S2, L2] [mm]
+%   II   - DC data in format [S1, L1, S2, L2] [mixed]
+%   musp - Assumed reduced scattering coefficient [1/mm]
+%   opts - (Optional) Structure containing recovery options [-]
+%
+% Outputs:
+%   mua  - Recovered absorption coefficient [1/mm]
+%   iter - Structure containing iteration information [-]
 
     %% Parse Input
     if nargin<=3

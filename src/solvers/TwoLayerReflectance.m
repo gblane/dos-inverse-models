@@ -1,28 +1,21 @@
 function [amp, phi, R] = TwoLayerReflectance(mu, L, rho, en, opt)
-    % Two-layer solution of the diffusion equation in semi-infinite
-    % geometry.
-    % Inputs:
-    %       mu  -   Absorption and scattering coeficents for the first and
-    %               second layer. In the format
-    %               mu=[mua1, mua2, musp1, musp2]. Units are 1/mm.
-    %       L   -   Thickness of the first layer. Units are mm.
-    %       rho -   Source detector seperation. Units are mm.
-    %       en  -   (OPTIONAL) Zeroth order Bessel function roots. Loaded 
-    %               from  zeroOrdBesselRoots.mat
-    %       opt -   (OPTIONAL) Options struct containing:
-    %               no    - Index of refraction outside. (Default: 1)
-    %               ni    - Index of refraction inside. (Default: 1.4)
-    %               fmod  - Source modulation frequency. Units are Hz. 
-    %                       (Default: 140 MHz)
-    %               B     - Radius of the cylindrical boundary. Units are
-    %                       mm. (Default: 15 cm)
-    %               h_end - Number of eigenvalues. (Default: 2000)
-    % Outputs:
-    %       amp -   Reflectance amplitude. Units are 1/mm^2
-    %       phi -   Reflectance phase. Units are radians. 
-
-    % Written By Bertan Hallacoglu
-    % Modified by Angelo Sassaroli
+% TwoLayerReflectance Two-layer solution of the diffusion equation in semi-infinite geometry.
+%
+% [amp, phi, R] = TwoLayerReflectance(mu, L, rho, en, opt)
+%
+% Written by Giles Blaney, Ph.D. Winter 2023 (Originally by Bertan H.)
+%
+% Inputs:
+%   mu  - Absorption and reduced scattering coefficients [mua1, mua2, musp1, musp2] [1/mm]
+%   L   - Thickness of the first layer [mm]
+%   rho - Source-detector separation [mm]
+%   en  - (Optional) Zeroth order Bessel function roots [-]
+%   opt - (Optional) Forward model options structure [-]
+%
+% Outputs:
+%   amp - Reflectance amplitude [1/mm^2]
+%   phi - Reflectance phase [rad]
+%   R   - Complex reflectance [1/mm^2]
     % Again modified by Giles Blaney
 
     warning('Legacy function use R_2L_withPreCom')

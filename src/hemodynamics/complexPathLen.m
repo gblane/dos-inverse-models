@@ -1,14 +1,19 @@
 function [L] = complexPathLen(dis, mua0, musp0, fmod, nin)
-% Giles Blaney Spring 2019
+% complexPathLen Calculate the complex pathlength for a semi-infinite medium.
+%
 % [L] = complexPathLen(dis, mua0, musp0, fmod, nin)
+%
+% Written by Giles Blaney, Ph.D. Spring 2019
+%
 % Inputs:
-%   dis    - Source detector distance. (cm)
-%   mua0   - Baseline absorption in a 1 x wavelength array. (1/cm)
-%   musp0  - Baseline scattering in a 1 x wavelength array. (1/cm)
-%   fmod   - (OPTIONAL, default=1.40625e8 Hz) Modulation frequecy. (Hz)
-%   nin    - (OPTIONAL, default=1.4) Internal index of refraction. (-)
+%   dis   - Source-detector distance [cm]
+%   mua0  - Baseline absorption coefficients [1/cm]
+%   musp0 - Baseline reduced scattering coefficients [1/cm]
+%   fmod  - (Optional, default=1.40625e8 Hz) Modulation frequency [Hz]
+%   nin   - (Optional, default=1.4) Internal index of refraction [-]
+%
 % Outputs:
-%   L      - Complex pathlength. (cm)
+%   L     - Complex pathlength [cm]
 
     warning('Legacy function DO NOT USE, use complexTotPathLen() instead');
 

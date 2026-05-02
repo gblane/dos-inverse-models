@@ -1,28 +1,19 @@
-function [mua, musp, iter]=DSR2muamuspEB_iterRecov(rhos, RR, opts)
-% [mua, musp, iter]=DSR2muamuspEB_iterRecov(rhos, RR, opts)
-% Giles Blaney Fall 2020
-% Assumes extrapolated-boundary condition
-% Expects DS set made of 4 SD measurements
-%   Inputs:
-%       rhos     - 1 x 4 array of source-detector distances in the
-%                  following format: [S1, L1, S2, L2] (mm)            
-%       RR       - Complex relectance data in a 1 x 4 array containing data
-%                  in the following format: [S1, L1, S2, L2]
-%       opts     - (Optional) Structure containing options as feilds:
-%                  - mua0: mua to use at for first iteration (1/mm)
-%                  - musp0: mua to use at for first iteration (1/mm)
-%                  - mueff_tol: Change in mueff stoping criteria (1/mm)
-%                    abs(mueff(n)-mueff(n-1))<mueff_tol => Stop
-%                  - n_max: Maximum iteration number stoping criteria
-%                    n>=n_max => Stop
-%                  - omega: Modulation frequency (rad/sec) 
-%                  - v: Speed of light in tissue (mm/sec)
-%                  - nin: Index of refraction inside medium
-%                  - nout: Index of refraction outside medium
-%   Output:
-%       mua      - mua found (1/mm)
-%       mua      - musp found (1/mm)
-%       iter     - Structure containing information about iterations as
+function [mua, musp, iter] = DSR2muamuspEB_iterRecov(rhos, RR, opts)
+% DSR2muamuspEB_iterRecov Recover absorption and reduced scattering using dual-slope reflectance iterative recovery (EB boundary).
+%
+% [mua, musp, iter] = DSR2muamuspEB_iterRecov(rhos, RR, opts)
+%
+% Written by Giles Blaney, Ph.D. Fall 2020
+%
+% Inputs:
+%   rhos - Source-detector distances in format [S1, L1, S2, L2] [mm]
+%   RR   - Complex reflectance data in format [S1, L1, S2, L2] [1/mm^2]
+%   opts - (Optional) Structure containing recovery options [-]
+%
+% Outputs:
+%   mua  - Recovered absorption coefficient [1/mm]
+%   musp - Recovered reduced scattering coefficient [1/mm]
+%   iter - Structure containing iteration information [-]
 %                  feilds:
 %                  - n: Number of iterations
 %                  - mueff_all: History of mueff during iterations

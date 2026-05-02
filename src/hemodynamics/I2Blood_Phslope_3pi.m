@@ -1,21 +1,24 @@
-function [dO, dD, dT, dmua] = ...
-    I2Blood_Phslope_3pi(dis, PhPh, mua0Lam, musp0Lam, lambda, fmod, nin)
-% Giles Blaney Spring 2019
-% [dO, dD, dT, dmua] = I2Blood_Islope(II, mua0, musp0, lambda, dis)
+function [dO, dD, dT, dmua] = I2Blood_Phslope_3pi(dis, PhPh, mua0Lam, musp0Lam, lambda, fmod, nin)
+% I2Blood_Phslope_3pi Calculate hemoglobin changes from phase slope measurements with 3pi wrapping.
+%
+% [dO, dD, dT, dmua] = I2Blood_Phslope_3pi(dis, PhPh, mua0Lam, musp0Lam, lambda, fmod, nin)
+%
+% Written by Giles Blaney, Ph.D. Spring 2019
+%
 % Inputs:
-%   dis    - Distances in a 1 x distnace array. (cm)
-%   PhPh   - Phase data in a 1 x wavelength cell. Cell elements contain
-%            time x distnace data.
-%   mua0   - Baseline absorption in a 1 x wavelength array. (1/cm)
-%   musp0  - Baseline scattering in a 1 x wavelength array. (1/cm)
-%   lambda - Wavelengths in a 1 x wavelength array. (nm)
-%   fmod   - (OPTIONAL, default=1.40625e8 Hz) Modulation frequecy. (Hz)
-%   nin    - (OPTIONAL, default=1.4) Internal index of refraction. (-)
+%   dis      - Source-detector distances [cm]
+%   PhPh     - Phase data (time x distance for each wavelength) [rad]
+%   mua0Lam  - Baseline absorption coefficients [1/cm]
+%   musp0Lam - Baseline reduced scattering coefficients [1/cm]
+%   lambda   - Optical wavelengths [nm]
+%   fmod     - (Optional, default=1.40625e8 Hz) Modulation frequency [Hz]
+%   nin      - (Optional, default=1.4) Internal index of refraction [-]
+%
 % Outputs:
-%   dO     - Change in [HbO2] concentration in a time x 1 array. (muM)
-%   dD     - Change in [Hb] concentration in a time x 1 array. (muM)
-%   dT     - Change in [HbT] concentration in a time x 1 array. (muM)
-%   dmua   - Change in Absorption in a time x wavelength array. (1/cm)
+%   dO       - Change in [HbO2] concentration [muM]
+%   dD       - Change in [Hb] concentration [muM]
+%   dT       - Change in [HbT] concentration [muM]
+%   dmua     - Change in absorption coefficient [1/cm]
 
     %% Setup
     if nargin<=5

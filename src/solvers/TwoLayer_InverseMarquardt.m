@@ -1,28 +1,22 @@
-function  [X, fcrv, cstf, info] = TwoLayer_InverseMarquardt(X0, data,...
-    en, flags, opts)
-    % Inverse two layer model using Marquardt's method for least squares. 
-    % Inputs:
-    %       X0    - Initial guess for fitting parameters. In the format
-    %               X0=[mua1, musp1, L, mua2, musp2, af]. Units of mu's are
-    %               1/mm, units of L are mm, units of af are 1/(mm^2 arb) 
-    %               or unitless depending on units of amplitude data.
-    %       data  - Mulidistance phase and amplitude data including errors.
-    %               In the format data=[rho, phi, amp, phi_err, amp_err].
-    %               Units of pho are mm, units of phi's are radians, and
-    %               units of amp are 1/mm^2 or arb depending on units of
-    %               af.
-    %       en    - (OPTIONAL) Zeroth order Bessel function roots. Loaded 
-    %               from zeroOrdBesselRoots.mat 
-    %       flags - (OPTIONAL) Vector of boolean controling what parameters
-    %               are fit for. Length and order are the same as X0 and X.
-    %       opts  - (OPTIONAL) Options struct containing:
-    %               muInit - Initial mu value. (Default: 1)
-    %               grdCrt - Gradient stopping criteria. (Default: 1e-8)
-    %               stpCrt - Step size stopping criteria. (Default: 1e-8)
-    %               maxItr - Maximum number of iterations. (Default: 500)
-    %               fwdOpt - (OPTIONAL) Forward model options struct 
-    %                        containing:
-    %                        no    - Index of refraction outside. 
+function [X, fcrv, cstf, info] = TwoLayer_InverseMarquardt(X0, data, en, flags, opts)
+% TwoLayer_InverseMarquardt Inverse two-layer model using Marquardt's method for least squares.
+%
+% [X, fcrv, cstf, info] = TwoLayer_InverseMarquardt(X0, data, en, flags, opts)
+%
+% Written by Giles Blaney, Ph.D.
+%
+% Inputs:
+%   X0    - Initial guess for fitting parameters [mua1, musp1, L, mua2, musp2, af] [mixed]
+%   data  - Experimental data [rho, phi, amp, phi_err, amp_err] [mixed]
+%   en    - (Optional) Zeroth order Bessel function roots [-]
+%   flags - (Optional) Vector of booleans controlling parameters to fit [-]
+%   opts  - (Optional) Optimization options structure [-]
+%
+% Outputs:
+%   X     - Recovered parameters [mixed]
+%   fcrv  - Fitted curve data [mixed]
+%   cstf  - Cost function value [unitless]
+%   info  - Performance information [-]
     %                                (Default: 1)
     %                        ni    - Index of refraction inside. 
     %                                (Default: 1.4)

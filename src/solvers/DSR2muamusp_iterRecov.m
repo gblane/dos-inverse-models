@@ -1,28 +1,19 @@
-function [mua, musp, iter]=DSR2muamusp_iterRecov(rhos, RR, opts)
-% [mua, musp, iter]=DSR2muamusp_iterRecov(rhos, RR, opts)
-% Giles Blaney Summer 2020
-% Assumes zero-boundary condition (Equ. 12.A.7, Bigio & Fantini)
-% Expects DS set made of 4 SD measurements
-%   Inputs:
-%       rhos     - 1 x 4 array of source-detector distances in the
-%                  following format: [S1, L1, S2, L2] (mm)            
-%       RR       - Complex relectance data in a 1 x 4 array containing data
-%                  in the following format: [S1, L1, S2, L2]
-%       opts     - (Optional) Structure containing options as feilds:
-%                  - mua0: mua to use at for first iteration (1/mm)
-%                  - musp0: mua to use at for first iteration (1/mm)
-%                  - mueff_tol: Change in mueff stoping criteria (1/mm)
-%                    abs(mueff(n)-mueff(n-1))<mueff_tol => Stop
-%                  - n_max: Maximum iteration number stoping criteria
-%                    n>=n_max => Stop
-%                  - omega: Modulation frequency (rad/sec) 
-%                  - v: Speed of light in tissue (mm/sec)
-%   Output:
-%       mua      - mua found (1/mm)
-%       mua      - musp found (1/mm)
-%       iter     - Structure containing information about iterations as
-%                  feilds:
-%                  - n: Number of iterations
+function [mua, musp, iter] = DSR2muamusp_iterRecov(rhos, RR, opts)
+% DSR2muamusp_iterRecov Recover absorption and reduced scattering using dual-slope reflectance iterative recovery (ZB boundary).
+%
+% [mua, musp, iter] = DSR2muamusp_iterRecov(rhos, RR, opts)
+%
+% Written by Giles Blaney, Ph.D. Summer 2020
+%
+% Inputs:
+%   rhos - Source-detector distances in format [S1, L1, S2, L2] [mm]
+%   RR   - Complex reflectance data in format [S1, L1, S2, L2] [1/mm^2]
+%   opts - (Optional) Structure containing recovery options [-]
+%
+% Outputs:
+%   mua  - Recovered absorption coefficient [1/mm]
+%   musp - Recovered reduced scattering coefficient [1/mm]
+%   iter - Structure containing iteration information [-]
 %                  - mueff_all: History of mueff during iterations
 %                  - mua_all: History of mua during iterations
 %                  - musp_all: History of musp during iterations

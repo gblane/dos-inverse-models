@@ -1,15 +1,19 @@
-function LY = calcPathLen_datTyp(R, L, Rcw, Lcw, datTyp)
-% Giles Blaney Summer 2020
-% Updated Giles Blaney Ph.D. Winter 2023
-%AS added "mReNpImNmO" data type
-% Input:
-%   R      - Complex reflectance (1/mm^2)
-%   L      - Complex pathlength (mm)
-%   Rcw    - Real CW reflectance (1/mm^2)
-%   Lcw    - Real CW pathlength (mm)
-%   datTyp - String for data type for which to calculate pathlength
-% Output:
-%   LY - Pathlength of 'datTyp' (mm)
+function [LY] = calcPathLen_datTyp(R, L, Rcw, Lcw, datTyp)
+% calcPathLen_datTyp Calculate the pathlength of a specific data type.
+%
+% [LY] = calcPathLen_datTyp(R, L, Rcw, Lcw, datTyp)
+%
+% Written by Giles Blaney, Ph.D. Summer 2020 (Updated Winter 2023)
+%
+% Inputs:
+%   R      - Complex reflectance [1/mm^2]
+%   L      - Complex pathlength [mm]
+%   Rcw    - Real CW reflectance [1/mm^2]
+%   Lcw    - Real CW pathlength [mm]
+%   datTyp - String for data type for which to calculate pathlength [-]
+%
+% Outputs:
+%   LY     - Pathlength of 'datTyp' [mm]
 
     switch datTyp
         case 'I' % ln(r^2 |R|)

@@ -1,28 +1,19 @@
-function [mua, musp, iter]=MDR2muamuspEB_iterRecov(rhos, R, opts)
-% [mua, musp, iter]=MDR2muamuspEB_iterRecov(rhos, R, opts)
-% Giles Blaney Fall 2020
-% Assumes extrapolated-boundary condition
-% For calibrated MD data with n (>=2) distances
-%   Inputs:
-%       rhos     - n x 1 array of source-detector distances (mm)            
-%       R        - n x 1 array of complex relectance data
-%       opts     - (Optional) Structure containing options as feilds:
-%                  - mua0: mua to use at for first iteration (1/mm)
-%                  - musp0: mua to use at for first iteration (1/mm)
-%                  - mueff_tol: Change in mueff stoping criteria (1/mm)
-%                    abs(mueff(n)-mueff(n-1))<mueff_tol => Stop
-%                  - n_max: Maximum iteration number stoping criteria
-%                    n>=n_max => Stop
-%                  - omega: Modulation frequency (rad/sec)
-%                  - v: Speed of light in tissue (mm/sec)
-%                  - nin: Index of refraction inside medium
-%                  - nout: Index of refraction outside medium
-%   Output:
-%       mua      - mua found (1/mm)
-%       mua      - musp found (1/mm)
-%       iter     - Structure containing information about iterations as
-%                  feilds:
-%                  - n: Number of iterations
+function [mua, musp, iter] = MDR2muamuspEB_iterRecov(rhos, R, opts)
+% MDR2muamuspEB_iterRecov Recover absorption and reduced scattering using multi-distance reflectance iterative recovery (EB boundary).
+%
+% [mua, musp, iter] = MDR2muamuspEB_iterRecov(rhos, R, opts)
+%
+% Written by Giles Blaney, Ph.D. Fall 2020
+%
+% Inputs:
+%   rhos - Vector of source-detector distances [mm]
+%   R    - Vector of complex reflectance data [1/mm^2]
+%   opts - (Optional) Structure containing recovery options [-]
+%
+% Outputs:
+%   mua  - Recovered absorption coefficient [1/mm]
+%   musp - Recovered reduced scattering coefficient [1/mm]
+%   iter - Structure containing iteration information [-]
 %                  - mueff_all: History of mueff during iterations
 %                  - mua_all: History of mua during iterations
 %                  - musp_all: History of musp during iterations

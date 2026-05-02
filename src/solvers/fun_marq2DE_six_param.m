@@ -1,10 +1,22 @@
-% function [f, J, W, mod, fram] = fun_marq2DE_six_param(x0,fpar,data)
-% Written By Bertan H. (May 2015) taking into account of choosing different
-% fitting parameters (see variable 'flags')
-function [f, J, mod, fram] = fun_marq2DE_six_param(x0,fpar,data,flags,en) %written by Angelo edited by Giles Blaney
-% function [f, J, mod] = fun_marq2DE_six_param(x0,fpar,data,flags) %written by Angelo. Use this line for not plotting fits
-% FUN_MARQ2DE Solutions of the Diffusion Equation for a two-layer medium
-% Written by Bertan H.
+function [f, J, mod, fram] = fun_marq2DE_six_param(x0, fpar, data, flags, en)
+% fun_marq2DE_six_param Calculate residuals and Jacobian for two-layer Marquardt recovery.
+%
+% [f, J, mod, fram] = fun_marq2DE_six_param(x0, fpar, data, flags, en)
+%
+% Written by Giles Blaney, Ph.D. (Originally by Bertan H. May 2015)
+%
+% Inputs:
+%   x0    - Fitting parameters [mua1, musp1, L, mua2, musp2, af] [mixed]
+%   fpar  - Fitting parameters indices [-]
+%   data  - Experimental data [mm, rad, arb, rad, arb] [mixed]
+%   flags - Vector of booleans controlling parameters to fit [-]
+%   en    - Zeroth order Bessel function roots [-]
+%
+% Outputs:
+%   f     - Vector of residuals [unitless]
+%   J     - Jacobian matrix [mixed]
+%   mod   - Forward model output [mixed]
+%   fram  - Frame information [-]
 format long
 r0 = data(:,1); ph0 = data(:,2); ac0 = data(:,3); phs = data(:,4); acs = data(:,5);
 % Units are in mm-1 and mm

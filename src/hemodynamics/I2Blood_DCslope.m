@@ -1,19 +1,22 @@
-function [dO, dD, dT, dmua] = ...
-    I2Blood_DCslope(dis, II, mua0, musp0, lambda)
-% Giles Blaney Spring 2019
-% [dO, dD, dT, dmua] = I2Blood_Islope(II, mua0, musp0, lambda, dis)
+function [dO, dD, dT, dmua] = I2Blood_DCslope(dis, II, mua0, musp0, lambda)
+% I2Blood_DCslope Calculate hemoglobin changes from DC slope measurements.
+%
+% [dO, dD, dT, dmua] = I2Blood_DCslope(dis, II, mua0, musp0, lambda)
+%
+% Written by Giles Blaney, Ph.D. Spring 2019
+%
 % Inputs:
-%   dis    - Distances in a 1 x distnace array. (cm)
-%   II     - Intensity data in a 1 x wavelength cell. Cell elements contain
-%            time x distnace data.
-%   mua0   - Baseline absorption in a 1 x wavelength array. (1/cm)
-%   musp0  - Baseline scattering in a 1 x wavelength array. (1/cm)
-%   lambda - Wavelengths in a 1 x wavelength array. (nm)
+%   dis    - Source-detector distances [cm]
+%   II     - Intensity data (time x distance for each wavelength) [mixed]
+%   mua0   - Baseline absorption coefficients [1/cm]
+%   musp0  - Baseline reduced scattering coefficients [1/cm]
+%   lambda - Optical wavelengths [nm]
+%
 % Outputs:
-%   dO     - Change in [HbO2] concentration in a time x 1 array. (muM)
-%   dD     - Change in [Hb] concentration in a time x 1 array. (muM)
-%   dT     - Change in [HbT] concentration in a time x 1 array. (muM)
-%   dmua   - Change in Absorption in a time x wavelength array. (1/cm)
+%   dO     - Change in [HbO2] concentration [muM]
+%   dD     - Change in [Hb] concentration [muM]
+%   dT     - Change in [HbT] concentration [muM]
+%   dmua   - Change in absorption coefficient [1/cm]
 
     IIcal=calI_first(dis, II, mua0, musp0);
 

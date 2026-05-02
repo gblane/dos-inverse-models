@@ -1,19 +1,26 @@
-% function  [X, info, perf, costf, mod, vid] = marquardt_2DE(fun_marq2DE,fpar,x0,opts,data)
-function  [X, info, perf, costf, mod, vid] = marquardt_2DE_old(fun_marq2DE_six_param,fpar,x0,opts,data,flags,en) %written by Angelo edited by Giles Blaney
-% marquardt_DE  Marquardt's method for least squares.
-% Reference booklet: Methods for non-linear least squares problem by
-% K. Madsen et al. (pages 27 & 37)
-% info : Performance information, vector with 6 elements:
-%        info(1:4) = final values of 
-%        [F(x)  ||F'||inf  ||dx||2  mu/max(A(i,i))] ,
-%          where  A = J(x)' J(x) .
-%          info(5) = no. of iteration steps
-%          info(6) = 1 : Stopped by small gradient
-%                    2 :  Stopped by small x-step
-%                    3 :  Stopped by  kmax
-%                    4 :  Singular matrix.  Restart from current 
-%                         x  with increased value for  mu.  
-% Written By Bertan H.
+function [X, info, perf, costf, mod, vid] = marquardt_2DE_old(fun_marq2DE_six_param, fpar, x0, opts, data, flags, en)
+% marquardt_2DE_old Inverse two-layer model using Marquardt's method (old version).
+%
+% [X, info, perf, costf, mod, vid] = marquardt_2DE_old(fun_marq2DE_six_param, fpar, x0, opts, data, flags, en)
+%
+% Written by Giles Blaney, Ph.D. (Originally by Bertan H.)
+%
+% Inputs:
+%   fun_marq2DE_six_param - Function handle for the forward model [-]
+%   fpar                  - Fitting parameters indices [-]
+%   x0                    - Initial guess for fitting parameters [mixed]
+%   opts                  - Optimization options [-]
+%   data                  - Experimental data [mixed]
+%   flags                 - Vector of booleans controlling parameters to fit [-]
+%   en                    - Zeroth order Bessel function roots [-]
+%
+% Outputs:
+%   X     - Recovered parameters [mixed]
+%   info  - Performance information [-]
+%   perf  - Performance metrics [-]
+%   costf - Cost function value [unitless]
+%   mod   - Forward model output [mixed]
+%   vid   - Video/visualization information [-]
 
 x0(end+1)=1;
 

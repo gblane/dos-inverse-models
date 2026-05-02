@@ -1,15 +1,18 @@
-function Y = calcData_datTyp(rho, R, Rcw, datTyp)
-% Giles Blaney Summer 2020
-% Updated Giles Blaney Ph.D. Winter 2023
-%AS added "mReNpImNmO" data type
-% Input:
-%   rho    - Source-Detector distance (mm)
-%   R      - Complex reflectance (1/mm^2)
-%   Rcw    - Real CW reflectance (1/mm^2)
-%   datTyp - String for data type for which to calculate pathlength
-% Output:
-%   LY - Pathlength of 'datTyp' (mm)
-
+function [Y] = calcData_datTyp(rho, R, Rcw, datTyp)
+% calcData_datTyp Calculate various data types from complex and CW reflectance.
+%
+% [Y] = calcData_datTyp(rho, R, Rcw, datTyp)
+%
+% Written by Giles Blaney, Ph.D. Summer 2020 (Updated Winter 2023)
+%
+% Inputs:
+%   rho    - Source-detector distance [mm]
+%   R      - Complex reflectance [1/mm^2]
+%   Rcw    - Real CW reflectance [1/mm^2]
+%   datTyp - String for data type for which to calculate data value [-]
+%
+% Outputs:
+%   Y      - Calculated data value [mixed]
 
     switch datTyp
         case 'I' % ln(r^2 |R|)

@@ -1,23 +1,27 @@
-function [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood_3pi(Ph, lambda, mua0, musp0,...
-    dis, bl, fmod, nin)
-% Giles Blaney Spring 2019
-% [dO, dD, dT, dmua, dI, I0] = Ph2Blood(Ph, lambda, dis, baseline)
+function [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood_3pi(Ph, lambda, mua0, musp0, dis, bl, fmod, nin)
+% Ph2Blood_3pi Calculate hemoglobin changes from phase measurements with 3pi wrapping.
+%
+% [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood_3pi(Ph, lambda, mua0, musp0, dis, bl, fmod, nin)
+%
+% Written by Giles Blaney, Ph.D. Spring 2019
+%
 % Inputs:
-%   Ph     - Phase data time x wavelength array. (rad)
-%   lambda - Optical wavelengths 1 x wavelength array. (nm)
-%   mua0   - Baseline absorption in a 1 x wavelength array. (1/cm)
-%   musp0  - Baseline scattering in a 1 x wavelength array. (1/cm)
-%   dis    - Source detector distance. (cm)
-%   bl     - (OPTIONAL, default=1:end) Array of baseline indexes.
-%   fmod   - (OPTIONAL, default=1.40625e8 Hz) Modulation frequecy. (Hz)
-%   nin    - (OPTIONAL, default=1.4) Internal index of refraction. (-)
+%   Ph     - Phase data [rad]
+%   lambda - Optical wavelengths [nm]
+%   mua0   - Baseline absorption coefficients [1/cm]
+%   musp0  - Baseline reduced scattering coefficients [1/cm]
+%   dis    - Source-detector distance [cm]
+%   bl     - (Optional, default=1:end) Array of baseline indices [-]
+%   fmod   - (Optional, default=1.40625e8 Hz) Modulation frequency [Hz]
+%   nin    - (Optional, default=1.4) Internal index of refraction [-]
+%
 % Outputs:
-%   dO     - Change in [HbO2] concentration in a time x 1 array. (muM)
-%   dD     - Change in [Hb] concentration in a time x 1 array. (muM)
-%   dT     - Change in [HbT] concentration in a time x 1 array. (muM)
-%   dmua   - Change in Absorption in a time x wavelength array. (1/cm)
-%   dPh    - Change in phase time x wavelength array. (rad)
-%   Ph0    - Baseline phase 1 x wavelength array. (rad)
+%   dO     - Change in [HbO2] concentration [muM]
+%   dD     - Change in [Hb] concentration [muM]
+%   dT     - Change in [HbT] concentration [muM]
+%   dmua   - Change in absorption coefficient [1/cm]
+%   dPh    - Change in phase [rad]
+%   Ph0    - Baseline phase [rad]
 
     %% Setup
     if size(lambda, 1)~=1

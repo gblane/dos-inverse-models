@@ -1,27 +1,16 @@
-function [E]=makeE(chroms, lambda)
-% [E]=makeE(chroms, lambda)
-% Giles Blaney Spring 2021
-% 
-% Inputs:   - chroms: String of chromophores to include in E. 
-%                     Available chromophores:
-%                     - O: Oxyhemoglobin
-%                     - D: Deoxyhemoglobin
-%                     - W: Water
-%                     - L: Lipid
-%                     - C: Collagen
-%                     - CCOo: Oxidized cytochrome c oxidase
-%                     - CCOr: reduced cytochrome c oxidase
-%                     (Default: 'OD')
-%                     Spaces are ignored.
-%           - lambda: Vectors of wavelengths (nm).
-%                     (Default: [830, 690])
-% 
-% Output:   - E: Extinction coefficient matrix.
-%                Units: 1/(mm uM) for O, D, CCOo, and CCOr
-%                       1/mm for W, L, and C
-%                size(E)=[length(lambda), length(chroms)];
-%                Defined as mua=E*C
-%                Order of C is defined by order in chroms input
+function [E] = makeE(chroms, lambda)
+% makeE Generate the extinction coefficient matrix for specified chromophores.
+%
+% [E] = makeE(chroms, lambda)
+%
+% Written by Giles Blaney, Ph.D. Spring 2021
+%
+% Inputs:
+%   chroms - String of chromophores to include (e.g., 'ODWL') [-]
+%   lambda - Vector of wavelengths [nm]
+%
+% Outputs:
+%   E      - Extinction coefficient matrix [1/(mm uM) or 1/mm]
     
     if nargin<=0
         chroms='OD';

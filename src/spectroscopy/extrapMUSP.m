@@ -1,13 +1,18 @@
-function [muspExtrap, b]=extrapMUSP(lambda, musp, lambdaExtrap)
-% [muspExtrap, b]=extrapMUSP(lambda, musp, lambdaExtrap)
-% Giles Blaney Spring 2021
-% Inputs:   - lambda: Vector of wavelengths (2 long)
-%           - musp: Vector of reduced scattering (2 long)
-%           - lambdaExtrap: Vector of wavelengths to extrapolate along
-% 
-% Outputs:  - muspExtrap: Extrapolated reduced scattering
-%                         (length(lambdaExtrap) long)
-%           - b: Power for musp(lambda)=musp0*(lambda/lambda0).^-b
+function [muspExtrap, b] = extrapMUSP(lambda, musp, lambdaExtrap)
+% extrapMUSP Extrapolate reduced scattering coefficients using a power law.
+%
+% [muspExtrap, b] = extrapMUSP(lambda, musp, lambdaExtrap)
+%
+% Written by Giles Blaney, Ph.D. Spring 2021
+%
+% Inputs:
+%   lambda       - Vector of wavelengths (2 long) [nm]
+%   musp         - Vector of reduced scattering coefficients (2 long) [1/mm]
+%   lambdaExtrap - Vector of wavelengths to extrapolate along [nm]
+%
+% Outputs:
+%   muspExtrap   - Extrapolated reduced scattering coefficients [1/mm]
+%   b            - Power law exponent for musp(lambda)=musp0*(lambda/lambda0).^-b [-]
     
     b=log(musp(1)/musp(2))/log(lambda(2)/lambda(1));
     
