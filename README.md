@@ -8,6 +8,11 @@ This repository focuses on the "Inverse Problem" in DOS: recovering tissue optic
 
 ## Contents
 
+### Examples (`examples/`)
+- **`broadband_spectroscopy/`**: Supporting code for multi-wavelength tissue analysis (based on Blaney et al., *Appl. Opt.* 2021).
+  - `exampleLookRawData.m`: Script for visualizing and analyzing broadband spectra.
+  - `TissDataAPOPAI2021.mat`: Example dataset from multiple tissue types.
+
 ### Iterative Property Recovery (`iterOptPropRecov/`)
 Non-linear optimization scripts to recover optical properties:
 - **DSI/DSR:** Recovery from Dual-Slope Intensity and Dual-Slope Reflectance measurements (`DSI2mua_iterRecov.m`, `DSR2muamusp_iterRecov.m`).
