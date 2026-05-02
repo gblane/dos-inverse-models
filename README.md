@@ -1,43 +1,37 @@
 # dos-inverse-models
 
+> [!CAUTION]
+> **WORK IN PROGRESS**: This repository is currently being reorganized for public release. Documentation and examples are subject to change.
+
 Optical property recovery algorithms and data type conversions for Diffuse Optical Spectroscopy (DOS).
 
 ## Overview
 
-This repository focuses on the "Inverse Problem" in DOS: recovering tissue optical properties (absorption $\mu_a$ and reduced scattering $\mu_s'$) from measured data. It includes iterative solvers, spectroscopy tools, and legacy blood flow models.
+This repository focuses on the "Inverse Problem" in DOS: recovering tissue optical properties (absorption $\mu_a$ and reduced scattering $\mu_s'$) from measured data. It includes iterative solvers, spectroscopy tools, and specialized hemodynamic models.
 
-## Contents
+## Repository Structure
+
+### Source Code (`src/`)
+- **`solvers/`**: Iterative property recovery algorithms for various measurement types (DSI, DSR, MDR) and non-linear optimizers for layered tissue.
+- **`spectroscopy/`**: Tools for multi-wavelength analysis, including extinction coefficient calculation and scattering extrapolation.
+- **`conversions/`**: Core logic for frequency-domain data-type processing and differential pathlength/slope factor (DPF/DSF) calculation.
+- **`hemodynamics/`**: Legacy scripts and tissue-specific models for calculating blood flow and muscle oxygenation.
 
 ### Examples (`examples/`)
 - **`broadband_spectroscopy/`**: Supporting code for multi-wavelength tissue analysis (based on Blaney et al., *Appl. Opt.* 2021).
-  - `exampleLookRawData.m`: Script for visualizing and analyzing broadband spectra.
-  - `TissDataAPOPAI2021.mat`: Example dataset from multiple tissue types.
 
-### Iterative Property Recovery (`iterOptPropRecov/`)
-Non-linear optimization scripts to recover optical properties:
-- **DSI/DSR:** Recovery from Dual-Slope Intensity and Dual-Slope Reflectance measurements (`DSI2mua_iterRecov.m`, `DSR2muamusp_iterRecov.m`).
-- **MDR:** Recovery from Multi-Distance Reflectance measurements (`MDR2muamusp_iterRecov.m`).
-- Supports both standard and enhanced (EB) measurement types.
+### Shared Data (`data/`)
+- Consolidated extinction spectra and multi-subject tissue datasets.
 
-### Data Type & Pathlength Utilities (`FDdataTypes/`)
-Core conversions for Frequency-Domain (FD) data:
-- `calcData_datTyp.m`: Converts raw FD data (AC/DC/Phase) into processed data types.
-- `calcPathLen_datTyp.m`: Calculates differential pathlength factors (DPF) for various measurement domains.
+## Citations
 
-### Spectroscopy & Chromophores (`Spectra/`)
-Tools for multi-wavelength analysis:
-- `makeE.m`: Generates extinction coefficient matrices for standard tissue chromophores (HbO, HbR, Water, Lipid, etc.).
-- `extrapMUSP.m`: Extrapolates scattering properties across a wide wavelength range using power-law fitting.
+If you use this toolkit in your research, please cite the relevant publications:
 
-### Legacy Blood Flow & Inverse Models (`abs_multiDist/legacy/` & `Muscle/legacy/`)
-Refactored and legacy scripts for calculating hemodynamics:
-- **Blood Flow:** Solutions for flow-related metrics (`I2Blood_DCslope.m`, `Ph2Blood.m`).
-- **Muscle NIRS:** Legacy implementations for muscular oxygenation monitoring (`I2Blood_Phslope_3pi.m`).
-
-### Advanced Solvers (`TwoLayer/`)
-Inverse solvers specifically for layered tissue structures:
-- `TwoLayer_InverseMarquardt.m`: Levenberg-Marquardt optimizer for two-layer media.
-- `marquardt_2DE_old.m`: Modified legacy solvers for efficient convergence.
+1.  **Dual-Slope Foundations:** Blaney, G., Sassaroli, A., Pham, T., Fernandez, C., & Fantini, S. (2019). Phase dual-slopes in frequency-domain near-infrared spectroscopy for enhanced sensitivity to brain tissue: First applications to human subjects. *Journal of Biophotonics*, 12(11), e201960018. [https://doi.org/10.1002/jbio.201960018](https://doi.org/10.1002/jbio.201960018)
+2.  **Broadband Spectroscopy:** Blaney, G., Curtsmith, P., Sassaroli, A., Fernandez, C., & Fantini, S. (2021). Broadband absorption spectroscopy of heterogeneous biological tissue. *Applied Optics*, 60(25), 7552-7562. [https://doi.org/10.1364/AO.431013](https://doi.org/10.1364/AO.431013)
 
 ## Author
 Developed by Giles Blaney, Ph.D.
+
+---
+*This repository is a reorganized and documented version of a personal codebase, performed by Gemini CLI.*
