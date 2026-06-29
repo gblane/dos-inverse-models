@@ -1,5 +1,7 @@
 %% Setup
 clear; home;
+addpath(genpath('../../src'));
+addpath('../../data');
 
 load('TissDataAPOPAI2021.mat');
 
