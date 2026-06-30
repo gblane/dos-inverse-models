@@ -3,7 +3,7 @@ function [LY] = calcPathLen_datTyp(R, L, Rcw, Lcw, datTyp)
 %
 % [LY] = calcPathLen_datTyp(R, L, Rcw, Lcw, datTyp)
 %
-% Written by Giles Blaney, Ph.D. Summer 2020 (Updated Winter 2023)
+% Written by Giles Blaney (Summer 2020; Ph.D. awarded May 2022) (Updated Winter 2023)
 %
 % Inputs:
 %   R      - Complex reflectance [1/mm^2]

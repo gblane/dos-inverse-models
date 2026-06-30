@@ -54,9 +54,9 @@ function [X, fcrv, cstf, info] = TwoLayer_InverseMarquardt(X0, data, en, flags, 
     
     %% Setup
     
-    % Check for options
+    % Check for options. zeroOrdBesselRoots is in ../dos-forward-models.
     if nargin<=2
-        load('zeroOrdBesselRoots.mat', 'en');
+        en=zeroOrdBesselRoots(2000);
     end
     if nargin<=3
         flags=ones(size(X0));

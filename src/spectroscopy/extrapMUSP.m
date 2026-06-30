@@ -3,7 +3,7 @@ function [muspExtrap, b] = extrapMUSP(lambda, musp, lambdaExtrap)
 %
 % [muspExtrap, b] = extrapMUSP(lambda, musp, lambdaExtrap)
 %
-% Written by Giles Blaney, Ph.D. Spring 2021
+% Written by Giles Blaney (Spring 2021; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   lambda       - Vector of wavelengths (2 long) [nm]

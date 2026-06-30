@@ -3,7 +3,7 @@ function [dO, dD, dT, dmua] = I2Blood_DCslope(dis, II, mua0, musp0, lambda)
 %
 % [dO, dD, dT, dmua] = I2Blood_DCslope(dis, II, mua0, musp0, lambda)
 %
-% Written by Giles Blaney, Ph.D. Spring 2019
+% Written by Giles Blaney (Spring 2019; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   dis    - Source-detector distances [cm]
@@ -36,11 +36,8 @@ function [dO, dD, dT, dmua] = I2Blood_DCslope(dis, II, mua0, musp0, lambda)
     mua=S.^2./(3*musp0);
     dmua=mua-mua0;
     
-    spectra=load('ext_dpf.mat');
-    Oext=interp1(spectra.lambda, spectra.Oext, lambda); %1/(mM cm)
-    Dext=interp1(spectra.lambda, spectra.Dext, lambda); %1/(mM cm)
-    
-    X=linsolve([Oext', Dext'], dmua');
+    E=makeE('OD', lambda)*1e4; % 1/(mM cm)
+    X=linsolve(E, dmua');
     dO=X(1,:)'*1000; %uM
     dD=X(2,:)'*1000; %uM
     dT=dO+dD; %uM
@@ -52,7 +49,8 @@ function [IIcal] = calI_first(dis, II, mua, musp)
 
     IIcal=cell(size(II));
     for i=1:length(II)
-        calFact=calI(dis, mean(II{i}(1:10, :), 1), mua(i), musp(i));
+        blInds=1:min(10, size(II{i}, 1));
+        calFact=calI(dis, mean(II{i}(blInds, :), 1), mua(i), musp(i));
         IIcal{i}=II{i}.*calFact;
     end
 

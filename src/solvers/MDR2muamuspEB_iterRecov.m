@@ -3,7 +3,7 @@ function [mua, musp, iter] = MDR2muamuspEB_iterRecov(rhos, R, opts)
 %
 % [mua, musp, iter] = MDR2muamuspEB_iterRecov(rhos, R, opts)
 %
-% Written by Giles Blaney, Ph.D. Fall 2020
+% Written by Giles Blaney (Fall 2020; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   rhos - Vector of source-detector distances [mm]
@@ -14,6 +14,9 @@ function [mua, musp, iter] = MDR2muamuspEB_iterRecov(rhos, R, opts)
 %   mua  - Recovered absorption coefficient [1/mm]
 %   musp - Recovered reduced scattering coefficient [1/mm]
 %   iter - Structure containing iteration information [-]
+%
+% Shared-repo dependencies:
+%   n2A is provided by ../dos-forward-models.
 %                  - mueff_all: History of mueff during iterations
 %                  - mua_all: History of mua during iterations
 %                  - musp_all: History of musp during iterations

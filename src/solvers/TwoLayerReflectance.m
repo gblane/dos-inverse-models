@@ -16,6 +16,9 @@ function [amp, phi, R] = TwoLayerReflectance(mu, L, rho, en, opt)
 %   amp - Reflectance amplitude [1/mm^2]
 %   phi - Reflectance phase [rad]
 %   R   - Complex reflectance [1/mm^2]
+%
+% Shared-repo dependencies:
+%   zeroOrdBesselRoots is provided by ../dos-forward-models.
     % Again modified by Giles Blaney
 
     warning('Legacy function use R_2L_withPreCom')
@@ -25,7 +28,7 @@ function [amp, phi, R] = TwoLayerReflectance(mu, L, rho, en, opt)
 
     % Check for options
     if nargin<=3
-        load('zeroOrdBesselRoots.mat', 'en');
+        en=zeroOrdBesselRoots(2000);
     end
     if nargin<=4
         no=1;

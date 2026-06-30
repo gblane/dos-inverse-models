@@ -23,6 +23,20 @@ This repository focuses on the "Inverse Problem" in DOS: recovering tissue optic
 ### Shared Data (`data/`)
 - Consolidated extinction spectra and multi-subject tissue datasets.
 
+## Sister-Repo Dependencies
+
+This repository is the canonical home for spectroscopy and conversion helpers
+such as `makeE`, `assumeOptProp`, `calcData_datTyp`, `calcPathLen_datTyp`,
+and `DPF_DSF_calc`.
+
+`DPF_DSF_calc` calls forward-model functions from `../dos-forward-models`
+(`complexTotPathLen` and `complexTotPathLen2L`). Add that sibling repo to the
+MATLAB path when running DPF/DSF calculations.
+
+Legacy hemodynamics and extrapolated-boundary recovery functions call `n2A`
+from `../dos-forward-models`; phase-processing functions also call `circ_mean`
+and `wrapTo` from `../my-matlab`.
+
 ## Citations
 
 If you use this toolkit in your research, please cite the relevant publications:
@@ -31,7 +45,8 @@ If you use this toolkit in your research, please cite the relevant publications:
 2.  **Broadband Spectroscopy:** Blaney, G., Curtsmith, P., Sassaroli, A., Fernandez, C., & Fantini, S. (2021). Broadband absorption spectroscopy of heterogeneous biological tissue. *Applied Optics*, 60(25), 7552-7562. [https://doi.org/10.1364/AO.431013](https://doi.org/10.1364/AO.431013)
 
 ## Author
-Developed by Giles Blaney, Ph.D.
+Developed by Giles Blaney, Ph.D. Giles Blaney received his Ph.D. in May 2022;
+older file-level author dates before May 2022 are historical provenance.
 
 ---
 *This repository is a reorganized and documented version of a personal codebase, performed by Gemini CLI.*

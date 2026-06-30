@@ -3,7 +3,7 @@ function [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood(Ph, lambda, mua0, musp0, dis, b
 %
 % [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood(Ph, lambda, mua0, musp0, dis, bl, fmod, nin)
 %
-% Written by Giles Blaney, Ph.D. Spring 2019
+% Written by Giles Blaney (Spring 2019; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   Ph     - Phase data [rad]
@@ -22,6 +22,9 @@ function [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood(Ph, lambda, mua0, musp0, dis, b
 %   dmua   - Change in absorption coefficient [1/cm]
 %   dPh    - Change in phase [rad]
 %   Ph0    - Baseline phase [rad]
+%
+% Shared-repo dependencies:
+%   circ_mean and wrapTo are provided by ../my-matlab.
 
     %% Setup
     if size(lambda, 1)~=1
@@ -57,14 +60,10 @@ function [dO, dD, dT, dmua, dPh, Ph0] = Ph2Blood(Ph, lambda, mua0, musp0, dis, b
     dmua=-dPh./Lph;
     
     %% Blood
-    spectra=load('ext_dpf.mat');
-    Oext=interp1(spectra.lambda, spectra.Oext, lambda); %1/(mM cm)
-    Dext=interp1(spectra.lambda, spectra.Dext, lambda); %1/(mM cm)
-    
-    X=linsolve([Oext', Dext'], dmua');
+    E=makeE('OD', lambda)*1e4; % 1/(mM cm)
+    X=linsolve(E, dmua');
     dO=X(1,:)'*1000; %uM
     dD=X(2,:)'*1000; %uM
     dT=dO+dD; %uM
 
 end
-

@@ -3,7 +3,7 @@ function [mua, musp, iter] = DSR2muamusp_iterRecov(rhos, RR, opts)
 %
 % [mua, musp, iter] = DSR2muamusp_iterRecov(rhos, RR, opts)
 %
-% Written by Giles Blaney, Ph.D. Summer 2020
+% Written by Giles Blaney (Summer 2020; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   rhos - Source-detector distances in format [S1, L1, S2, L2] [mm]

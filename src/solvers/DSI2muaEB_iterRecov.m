@@ -3,7 +3,7 @@ function [mua, iter] = DSI2muaEB_iterRecov(rhos, II, musp, opts)
 %
 % [mua, iter] = DSI2muaEB_iterRecov(rhos, II, musp, opts)
 %
-% Written by Giles Blaney, Ph.D. Fall 2020
+% Written by Giles Blaney (Fall 2020; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   rhos - Source-detector distances in format [S1, L1, S2, L2] [mm]
@@ -14,6 +14,9 @@ function [mua, iter] = DSI2muaEB_iterRecov(rhos, II, musp, opts)
 % Outputs:
 %   mua  - Recovered absorption coefficient [1/mm]
 %   iter - Structure containing iteration information [-]
+%
+% Shared-repo dependencies:
+%   n2A is provided by ../dos-forward-models.
 
     %% Parse Input
     if nargin<=3

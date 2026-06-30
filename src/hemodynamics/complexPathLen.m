@@ -3,7 +3,7 @@ function [L] = complexPathLen(dis, mua0, musp0, fmod, nin)
 %
 % [L] = complexPathLen(dis, mua0, musp0, fmod, nin)
 %
-% Written by Giles Blaney, Ph.D. Spring 2019
+% Written by Giles Blaney (Spring 2019; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   dis   - Source-detector distance [cm]
@@ -14,6 +14,9 @@ function [L] = complexPathLen(dis, mua0, musp0, fmod, nin)
 %
 % Outputs:
 %   L     - Complex pathlength [cm]
+%
+% Shared-repo dependencies:
+%   n2A is provided by ../dos-forward-models.
 
     warning('Legacy function DO NOT USE, use complexTotPathLen() instead');
 

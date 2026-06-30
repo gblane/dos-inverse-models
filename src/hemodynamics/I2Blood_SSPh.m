@@ -3,7 +3,7 @@ function [dO, dD, dT, dmua] = I2Blood_SSPh(dis, PhPh, mua0Lam, musp0Lam, lambda,
 %
 % [dO, dD, dT, dmua] = I2Blood_SSPh(dis, PhPh, mua0Lam, musp0Lam, lambda, fmod, nin)
 %
-% Written by Giles Blaney, Ph.D. Spring 2019
+% Written by Giles Blaney (Spring 2019; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   dis      - Source-detector distances [cm]
@@ -19,6 +19,9 @@ function [dO, dD, dT, dmua] = I2Blood_SSPh(dis, PhPh, mua0Lam, musp0Lam, lambda,
 %   dD       - Change in [Hb] concentration [muM]
 %   dT       - Change in [HbT] concentration [muM]
 %   dmua     - Change in absorption coefficient [1/cm]
+%
+% Shared-repo dependencies:
+%   circ_mean is provided by ../my-matlab.
 
     %% Setup
     if nargin<=5
@@ -52,8 +55,8 @@ function [dO, dD, dT, dmua] = I2Blood_SSPh(dis, PhPh, mua0Lam, musp0Lam, lambda,
     for i=1:length(PhPhcal)
         if length(dis)==2
             S(:, i)=(PhPhcal{i}(:, 2)-PhPhcal{i}(:, 1))/(dis(2)-dis(1));
-        else           
-            for j=1:size(lnr2I, 1)
+        else
+            for j=1:size(PhPhcal{i}, 1)
                 pTemp=polyfit(dis, PhPhcal{i}(j, :), 1);
                 S(j, i)=pTemp(1);
             end
@@ -65,11 +68,8 @@ function [dO, dD, dT, dmua] = I2Blood_SSPh(dis, PhPh, mua0Lam, musp0Lam, lambda,
     dmua=dS.*fact';
 
     %% dmua -> dBlood
-    spectra=load('ext_dpf.mat');
-    Oext=interp1(spectra.lambda, spectra.Oext, lambda); %1/(mM cm)
-    Dext=interp1(spectra.lambda, spectra.Dext, lambda); %1/(mM cm)
-
-    X=linsolve([Oext', Dext'], dmua');
+    E=makeE('OD', lambda)*1e4; % 1/(mM cm)
+    X=linsolve(E, dmua');
     dO=X(1,:)'*1000; %uM
     dD=X(2,:)'*1000; %uM
     dT=dO+dD; %uM
@@ -81,7 +81,8 @@ function [PhPhcal] = calPh_first(dis, PhPh, mua, musp, omega, nu)
 
     PhPhcal=cell(size(PhPh));
     for i=1:length(PhPh)
-        cal=calPh(dis, wrapTo2Pi(circ_mean(PhPh{i}(1:10, :))),...
+        blInds=1:min(10, size(PhPh{i}, 1));
+        cal=calPh(dis, wrapTo2Pi(circ_mean(PhPh{i}(blInds, :))),...
             mua(i), musp(i), omega, nu);
         PhPhcal{i}=PhPh{i}-cal;
     end

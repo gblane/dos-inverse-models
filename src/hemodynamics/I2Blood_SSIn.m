@@ -3,7 +3,7 @@ function [dO, dD, dT, dmua] = I2Blood_SSIn(dis, II, mua0Lam, musp0Lam, lambda, f
 %
 % [dO, dD, dT, dmua] = I2Blood_SSIn(dis, II, mua0Lam, musp0Lam, lambda, fmod, nin)
 %
-% Written by Giles Blaney, Ph.D. Spring 2019
+% Written by Giles Blaney (Spring 2019; Ph.D. awarded May 2022)
 %
 % Inputs:
 %   dis      - Source-detector distances [cm]
@@ -54,8 +54,8 @@ function [dO, dD, dT, dmua] = I2Blood_SSIn(dis, II, mua0Lam, musp0Lam, lambda, f
         lnr2II = log(IIcal{i}.*(dis.^2));
         if length(dis)==2
             S(:, i)=(lnr2II(:, 2)-lnr2II(:, 1))/(dis(2)-dis(1));
-        else           
-            for j=1:size(lnr2I, 1)
+        else
+            for j=1:size(lnr2II, 1)
                 pTemp=polyfit(dis,lnr2II(j, :), 1);
                 S(j, i)=pTemp(1);
             end
@@ -67,11 +67,8 @@ function [dO, dD, dT, dmua] = I2Blood_SSIn(dis, II, mua0Lam, musp0Lam, lambda, f
     dmua=dS.*fact';
 
     %% dmua -> dBlood
-    spectra=load('ext_dpf.mat');
-    Oext=interp1(spectra.lambda, spectra.Oext, lambda); %1/(mM cm)
-    Dext=interp1(spectra.lambda, spectra.Dext, lambda); %1/(mM cm)
-
-    X=linsolve([Oext', Dext'], dmua');
+    E=makeE('OD', lambda)*1e4; % 1/(mM cm)
+    X=linsolve(E, dmua');
     dO=X(1,:)'*1000; %uM
     dD=X(2,:)'*1000; %uM
     dT=dO+dD; %uM
@@ -83,7 +80,8 @@ function [IIcal] = calI_first(dis, II, mua, musp, omega, nu)
 
     IIcal=cell(size(II));
     for i=1:length(II)
-        calFact=calI(dis, mean(II{i}(1:500, :), 1), mua(i), musp(i), omega, nu);
+        blInds=1:min(500, size(II{i}, 1));
+        calFact=calI(dis, mean(II{i}(blInds, :), 1), mua(i), musp(i), omega, nu);
         IIcal{i}=II{i}.*calFact;
     end
 

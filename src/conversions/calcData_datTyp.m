@@ -3,7 +3,7 @@ function [Y] = calcData_datTyp(rho, R, Rcw, datTyp)
 %
 % [Y] = calcData_datTyp(rho, R, Rcw, datTyp)
 %
-% Written by Giles Blaney, Ph.D. Summer 2020 (Updated Winter 2023)
+% Written by Giles Blaney (Summer 2020; Ph.D. awarded May 2022) (Updated Winter 2023)
 %
 % Inputs:
 %   rho    - Source-detector distance [mm]
